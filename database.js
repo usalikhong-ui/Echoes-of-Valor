@@ -1,8 +1,11 @@
+// database.js
+
 import { classes, classGrowth } from './classes.js';
 import { monsters } from './monsters.js';
 import { skills } from './skills.js';
 import { items } from './items.js';
-import { quests, npcs } from './quests.js';
+// 【修正】在這裡同時導入 storyline
+import { quests, npcs, storyline } from './quests.js';
 import { locations, shop, dropTables } from './locations.js';
 
 export const LOCALIZATION_MAP = {
@@ -28,7 +31,8 @@ export const DATABASE = {
     quests,
     shop,
     dropTables,
-    storyline: quests.storyline, // 為了方便管理，把 storyline 也放在 quests.js 裡
+    // 【修正】將 storyline 正確地放入 DATABASE
+    storyline, 
     codex: {
         monsters: Object.keys(monsters),
         items: Object.values(items).filter(i => ['consumable', 'material', 'skillbook'].includes(i.type)).map(i => i.id),
