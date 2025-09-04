@@ -495,8 +495,8 @@ const ui = {
                     <ul class="list-disc list-inside text-gray-300 space-y-1">
                         <li><b class="text-white">劍客:</b> 使用恢復藥水時，效果翻倍。</li>
                         <li><b class="text-white">修士:</b> 戰鬥失敗復活時，不會損失金錢。其普通攻擊傷害部分取決于<span class="text-cyan-400">靈力</span>。</li>
-                        <li><b class="text-white">獸人:</b> 無法使用法力藥水，但所有攻擊都附帶<span class="text-blue-400">1%</span>傷害值的法力吸收。</li>
-                        <li><b class="text-white">死靈:</b> 無法使用生命藥水，但所有攻擊都附帶<span class="text-green-400">1%</span>傷害值的生命竊取。</li>
+                        <li><b class="text-white">獸人:</b> 無法使用法力藥水，但所有攻擊都附帶<span class="text-blue-400">10%</span>傷害值的法力吸收。</li>
+                        <li><b class="text-white">死靈:</b> 無法使用生命藥水，但所有攻擊都附帶<span class="text-green-400">10%</span>傷害值的生命竊取。</li>
                     </ul>
                 </div>
             </div>
@@ -1257,12 +1257,12 @@ const combat = {
 
         if (attacker.isPlayer) {
             if (attacker.class === 'necromancer') {
-                const healAmount = Math.max(1, Math.floor(finalDamage * 0.10));
+                const healAmount = Math.max(1, Math.floor(finalDamage * 0.10)); // <-- 修改為 10%
                 attacker.stats.hp = Math.min(attacker.maxStats.hp, attacker.stats.hp + healAmount);
                 this.game.ui.showCombatLogMessage(`${attacker.name} 透過亡靈之軀恢復了 ${healAmount} 點生命。`, 'text-green-300');
             }
             if (attacker.class === 'orc') {
-                const manaAmount = Math.max(1, Math.floor(finalDamage * 0.10));
+                const manaAmount = Math.max(1, Math.floor(finalDamage * 0.10)); // <-- 修改為 10%
                 attacker.stats.mp = Math.min(attacker.maxStats.mp, attacker.stats.mp + manaAmount);
                  this.game.ui.showCombatLogMessage(`${attacker.name} 透過野蠻體質吸收了 ${manaAmount} 點法力。`, 'text-blue-300');
             }
@@ -1554,7 +1554,7 @@ export const game = {
         this.addEventListeners();
         
         const loadGameBtn = document.getElementById('load-game-btn');
-        if (!localStorage.getItem('勇闖天下-savegame')) {
+        if (!localStorage.getItem('Echoes-of-Valor-savegame')) {
             loadGameBtn.disabled = true;
             loadGameBtn.title = '沒有找到存檔';
         } else {
@@ -1692,4 +1692,5 @@ export const game = {
         shop() { game.ui.showScreen('shop-screen'); },
     },
 };
+
 // #endregion
